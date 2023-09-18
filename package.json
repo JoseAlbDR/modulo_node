@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "chance": "^1.1.11",
+    "nodemon": "^3.0.1"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "name": "basicserver",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
