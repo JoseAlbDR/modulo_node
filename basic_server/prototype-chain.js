@@ -35,3 +35,19 @@ Object.setPrototypeOf(Agente.prototype, Persona.prototype);
 const smith = new Agente('Smith');
 
 // Herencia multiple
+function Superheroe() {
+  this.vuela = function () {
+    console.log(this.nombre, 'vuela');
+  };
+}
+
+// copiar todas las propiedades de los Superheroes al prototipo del Agente
+Object.assign(Agente.prototype, new Superheroe());
+
+smith.saluda();
+smith.vuela();
+
+console.log(smith);
+console.log(Agente.prototype);
+console.log(Persona.prototype);
+console.log(Object.getPrototypeOf(smith));
