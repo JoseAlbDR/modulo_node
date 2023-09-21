@@ -15,5 +15,10 @@
     <% } else { %>
     <p>El segundo actual es impar.</p>
     <%} %>
+    <p>Segundo actual: <%= segundoActual %></p>
+
+    <% usuarios.forEach(usuario => { %>
+    <p>El agente <%= usuario.nombre %> tiene <%= usuario.edad %> años.</p>
+    <%})%>
   </body>
 </html>
