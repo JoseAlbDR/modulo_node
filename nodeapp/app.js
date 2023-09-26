@@ -7,6 +7,13 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 require('./lib/connectMongoose');
+
+// const Agente = require('./models/Agente');
+
+// const agentes = Agente.find({}).then((response) => console.log(response));
+
+// console.log(agentes);
+
 var app = express();
 
 // view engine setup
@@ -25,6 +32,10 @@ app.use((req, res, next) => {
   next();
 });
 
+// Rutas API
+app.use('/api/agentes', require('./routes/api/agentes'));
+
+// Rutas website
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
