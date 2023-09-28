@@ -1,7 +1,25 @@
 'use strict';
 
+const readLine = require('node:readline/promises');
 const connection = require('./lib/connectMongoose');
 const Agente = require('./models/Agente');
+
+const question = async (text) => {
+  // conectar con la consola
+  const inter = readLine.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  try {
+    const response = await inter.question(text);
+    return response === 'si';
+  } catch (error) {
+    console.error(error);
+  } finally {
+    inter.close();
+  }
+};
 
 const initAgentes = async () => {
   try {
@@ -30,6 +48,19 @@ const initAgentes = async () => {
 };
 
 const main = async () => {
+  // espero a que conecte a la base de datos
+  await new Promise((resolve) => connection.once('open', resolve));
+
+  const borrar = await question(
+    'Are you sure you want to wipe and repopulate it?\n'
+  );
+
+  console.log(borrar);
+
+  if (!borrar) {
+    process.exit();
+  }
+
   try {
     //inicializar la coleccion de agentes
     await initAgentes();
