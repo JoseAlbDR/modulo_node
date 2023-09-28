@@ -11,6 +11,8 @@ const dbConnect = async () => {
 
 dbConnect();
 
+module.exports = mongoose.connection;
+
 // exports = dbConnect;
 
 // mongoose.connection.on('error', (err) => console.log('Error de conexion', err));

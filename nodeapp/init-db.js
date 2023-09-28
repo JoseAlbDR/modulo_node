@@ -33,6 +33,8 @@ const main = async () => {
   try {
     //inicializar la coleccion de agentes
     await initAgentes();
+
+    connection.close();
   } catch (error) {
     console.log('Hubo un error', error);
   }
