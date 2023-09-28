@@ -4,7 +4,42 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
-    const agentes = await Agente.find({});
+    // filtros
+    const filterByName = req.query.name;
+    const filterByAge = req.query.age;
+
+    // paginacion
+    const skip = req.query.skip;
+    const limit = req.query.limit;
+
+    // ordenacion
+    const sort = req.query.sort;
+
+    const filtro = {};
+
+    if (filterByName) {
+      filtro.name = filterByName;
+    }
+
+    if (filterByAge) {
+      filtro.age = filterByAge;
+    }
+
+    let query = Agente.find(filtro);
+
+    if (skip) {
+      query = query.skip(skip);
+    }
+
+    if (limit) {
+      query = query.limit(limit);
+    }
+
+    if (sort) {
+      query = query.sort(sort);
+    }
+
+    const agentes = await query;
 
     res.status(200).json({ agentes });
   } catch (error) {
