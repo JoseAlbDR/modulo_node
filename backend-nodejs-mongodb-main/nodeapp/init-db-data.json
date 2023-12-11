@@ -1,0 +1,7 @@
+{
+  "agentes": [
+    { "name": "Smith", "age": 33 },
+    { "name": "Jones", "age": 23 },
+    { "name": "Brown", "age": 46 }
+  ]
+}
