@@ -1,6 +1,11 @@
 {
-	"CABECERA": "CABECERA",
-	"Welcome to": "Bienvenido a",
-	"Condicionales": "Condicionales",
-	"Bucles": "Bucles"
+  "CABECERA": "CABECERA",
+  "Welcome to": "Bienvenido a",
+  "Condicionales": "Condicionales",
+  "Bucles": "Bucles",
+  "i18n example for plurals": "i18n example for plurals",
+  "Mouse": {
+    "one": "Mouse",
+    "other": "Ratones"
+  }
 }
