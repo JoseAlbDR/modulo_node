@@ -9,6 +9,7 @@ i18n.configure({
   defaultLocale: 'en',
   autoReload: true,
   syncFiles: true,
+  cookie: 'nodeapp-locale',
 });
 
 //* Para utilizar en scripts

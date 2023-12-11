@@ -1,12 +1,14 @@
 {
-  "CABECERA": "HEADER",
-  "Welcome to": "Welcome to",
-  "Condicionales": "Conditionals",
-  "Bucles": "Loops",
-  "i18n example for plurals": "i18n example for plurals",
-  "Mouse": {
-    "one": "Mouse",
-    "other": "Mice"
-  },
-  "Hola": "Hello"
+	"CABECERA": "HEADER",
+	"Welcome to": "Welcome to",
+	"Condicionales": "Conditionals",
+	"Bucles": "Loops",
+	"i18n example for plurals": "i18n example for plurals",
+	"Mouse": {
+		"one": "Mouse",
+		"other": "Mice"
+	},
+	"Hola": "Hello",
+	"Enter a new age of web design": "Enter a new age of web design",
+	"Features": "Features"
 }
