@@ -5,7 +5,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 mongoose.connection.once('open', () => {
-  console.log('Conectado a MongoDB en', mongoose.connection.name);
+  // console.log('Conectado a MongoDB en', mongoose.connection.name);
 });
 
 mongoose.connect('mongodb://mongo-user:123456@localhost:27017/');
