@@ -1,30 +1,45 @@
 <% include cabecera.ejs %>
-<h1><%= title %></h1>
-<p><%= __("Welcome to") %> <%= title %></p>
 
-<p><%= texto + '!' %></p>
+<header class="masthead">
+  <div class="container px-5">
+    <div class="row gx-5 align-items-center">
+      <div class="col-lg-6">
+        <!-- Mashead text and app badges-->
+        <div class="mb-5 mb-lg-0 text-center text-lg-start">
+          <h1><%= title %></h1>
+          <p><%= __("Welcome to") %> <%= title %></p>
 
-<p><%= nombre %></p>
+          <p><%= texto + '!' %></p>
 
-<h2><%= __("Condicionales") %></h2>
-<% if (esPar) { %>
-<p>El segundo actual es par.</p>
-<% } else { %>
-<p>El segundo actual es impar.</p>
-<% } %>
+          <p><%= nombre %></p>
 
-<p>Segundo actual: <%= segundoActual %></p>
+          <h2><%= __("Condicionales") %></h2>
+          <% if (esPar) { %>
+          <p>El segundo actual es par.</p>
+          <% } else { %>
+          <p>El segundo actual es impar.</p>
+          <% } %>
 
-<h2><%= __("Bucles") %></h2>
-<% usuarios.forEach(usuario => { %>
-<p>El agente <%= usuario.nombre %> tiene <%= usuario.edad %> años.</p>
-<% }) %>
+          <p>Segundo actual: <%= segundoActual %></p>
 
-<h2><%= __("i18n example for plurals") %></h2>
-<p>Hay 0 <%= __n("Mouse", 0) %></p>
-<p>Hay 1 <%= __n("Mouse", 1) %></p>
-<p>Hay 2 <%= __n("Mouse", 2) %></p>
-<p>Hay 3 <%= __n("Mouse", 3) %></p>
-<p>Hay 4 <%= __n("Mouse", 4) %></p>
+          <h2><%= __("Bucles") %></h2>
+          <% usuarios.forEach(usuario => { %>
+          <p>El agente <%= usuario.nombre %> tiene <%= usuario.edad %> años.</p>
+          <% }) %>
+
+          <h2><%= __("i18n example for plurals") %></h2>
+          <p>Hay 0 <%= __n("Mouse", 0) %></p>
+          <p>Hay 1 <%= __n("Mouse", 1) %></p>
+          <p>Hay 2 <%= __n("Mouse", 2) %></p>
+          <p>Hay 3 <%= __n("Mouse", 3) %></p>
+          <p>Hay 4 <%= __n("Mouse", 4) %></p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <!-- Masthead device mockup feature-->
+      </div>
+    </div>
+  </div>
+</header>
 
 <% include pie.ejs %>
