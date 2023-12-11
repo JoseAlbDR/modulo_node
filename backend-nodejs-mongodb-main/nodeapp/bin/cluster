@@ -29,6 +29,8 @@ if (cluster.isPrimary) {
     console.log(
       `Worker ${worker.id} with PID ${worker.process.pid} exited with code ${code} y signal ${signal}`
     );
+    console.log('Arranco otro worker');
+    cluster.fork();
   });
 } else {
   //* Soy un worker, por tanto me pongo a atender peticiones
