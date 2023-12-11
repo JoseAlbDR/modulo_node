@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const basicAuthMiddleware = require('./lib/basicAuthMiddleware');
 const swaggerMiddleware = require('./lib/swaggerMiddleware');
+const i18n = require('./lib/i18nConfigure');
 
 require('./lib/connectMongoose');
 
@@ -40,21 +41,21 @@ app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
 /**
  * Rutas del website
  */
-app.use('/',      require('./routes/index'));
+app.use(i18n.init);
+app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-
+app.use(function (err, req, res, next) {
   // comprobar si es un error de validación
   if (err.array) {
     const errorInfo = err.errors[0]; // err.array({ onlyFirstError: true })[0]
-    console.log(errorInfo)
+    console.log(errorInfo);
     err.message = `Error en ${errorInfo.location}, parámetro ${errorInfo.path} ${errorInfo.msg}`;
     err.status = 422;
   }
