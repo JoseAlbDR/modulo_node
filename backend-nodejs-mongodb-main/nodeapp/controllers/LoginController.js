@@ -22,7 +22,7 @@ class LoginController {
         return res.render('login');
       }
 
-      res.redirect('/privado');
+      res.redirect('/private');
     } catch (error) {
       next(error);
     }
