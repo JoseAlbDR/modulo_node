@@ -16,12 +16,17 @@ class LoginController {
 
       const user = await User.findOne({ email });
 
-      if (!user || user.password !== password) {
+      const isMatch = await user.comparePassword(password);
+
+      console.log(isMatch);
+
+      if (!user || !isMatch) {
         res.locals.error = req.__('Incorrect email or password');
         res.locals.email = email;
         return res.render('login');
       }
 
+      req.session.user = user.id;
       res.redirect('/private');
     } catch (error) {
       next(error);

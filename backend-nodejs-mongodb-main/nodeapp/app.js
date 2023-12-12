@@ -6,6 +6,7 @@ var logger = require('morgan');
 const basicAuthMiddleware = require('./lib/basicAuthMiddleware');
 const swaggerMiddleware = require('./lib/swaggerMiddleware');
 const i18n = require('./lib/i18nConfigure');
+const session = require('express-session');
 
 require('./lib/connectMongoose');
 
@@ -42,6 +43,15 @@ app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
  * Rutas del website
  */
 app.use(i18n.init);
+app.use(
+  session({
+    name: 'nodeapp-session', // cookie name
+    secret: 'milittlesecret',
+    saveUninitialized: true,
+    resave: false,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 },
+  })
+);
 app.use('/', require('./routes/index'));
 app.use('/features', require('./routes/features'));
 app.use('/users', require('./routes/users'));
