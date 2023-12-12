@@ -18,8 +18,6 @@ class LoginController {
 
       const isMatch = await user.comparePassword(password);
 
-      console.log(isMatch);
-
       if (!user || !isMatch) {
         res.locals.error = req.__('Incorrect email or password');
         res.locals.email = email;
