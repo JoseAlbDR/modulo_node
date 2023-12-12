@@ -1,9 +1,8 @@
 const express = require('express');
+const FeaturesController = require('../controllers/features');
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-  res.render('features');
-});
+router.get('/', FeaturesController.renderFeatures);
 
 module.exports = router;
