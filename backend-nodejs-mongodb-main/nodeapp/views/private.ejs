@@ -8,10 +8,29 @@
     >
       <div class="col-12 col-lg-5">
         <h2 class="display-4 lh-1 mb-4"><%= __("Private Zone") %></h2>
+      </div>
+      <div class="col-12 col-lg-5">
         <p>User: <%= email %></p>
       </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% include pie.ejs %> <% agents.forEach(agent => { %>
+          <tr>
+            <th scope="row"><%= agent.id %></th>
+            <td><%= agent.name %></td>
+            <td><%= agent.age %></td>
+            <td></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
-
-<% include pie.ejs %>

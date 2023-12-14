@@ -1,3 +1,4 @@
+const Agente = require('../models/Agente');
 const User = require('../models/Usuario');
 const createError = require('http');
 
@@ -12,9 +13,9 @@ class PrivateController {
         next(createError(500, 'user not found'));
       }
 
-      res.locals.email = user.email;
+      const agents = await Agente.find({ owner: user.id });
 
-      res.render('private');
+      res.render('private', { email: user.email, agents });
     } catch (error) {
       next(error);
       return;
