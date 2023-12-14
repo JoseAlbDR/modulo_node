@@ -10,6 +10,8 @@ const swaggerMiddleware = require('./lib/swaggerMiddleware');
 const i18n = require('./lib/i18nConfigure');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const sessionAuthMiddleware = require('./lib/sessionAuthMiddleware');
+const AgentsController = require('./controllers/AgentsController');
 
 require('./lib/connectMongoose');
 
@@ -72,6 +74,11 @@ app.use('/login', require('./routes/auth'));
 app.use('/logout', require('./routes/logout'));
 app.use('/private', require('./routes/private'));
 app.use('/agents-new', require('./routes/agents'));
+app.get(
+  '/delete-agent/:id',
+  sessionAuthMiddleware,
+  AgentsController.deleteAgent
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
