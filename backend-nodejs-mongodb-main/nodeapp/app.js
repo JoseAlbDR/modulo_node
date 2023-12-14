@@ -63,6 +63,7 @@ app.use('/features', require('./routes/features'));
 app.use('/users', require('./routes/users'));
 app.use('/change-locale', require('./routes/change-locale'));
 app.use('/login', require('./routes/auth'));
+app.use('/logout', require('./routes/logout'));
 app.use('/private', require('./routes/private'));
 
 // catch 404 and forward to error handler

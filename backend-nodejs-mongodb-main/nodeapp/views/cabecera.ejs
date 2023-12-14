@@ -63,18 +63,29 @@
                 ><%= __("Features") %></a
               >
             </li>
+            <% if(session.user) { %>
             <li class="nav-item">
-              <a class="nav-link me-lg-3" href="#download"
-                ><%= __("Download") %></a
+              <a class="nav-link me-lg-3" href="/private"
+                ><%= __("Private Area") %></a
               >
             </li>
+            <% } %>
           </ul>
+          <% if(!session.user) { %>
           <a
             class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0"
             href="/login"
           >
             <span class="small"><%= __("Login") %></span>
           </a>
+          <% }else{ %>
+          <a
+            class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0"
+            href="/logout"
+          >
+            <span class="small"><%= __("Logout") %></span>
+          </a>
+          <% } %>
         </div>
       </div>
     </nav>

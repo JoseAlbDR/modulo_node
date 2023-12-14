@@ -30,6 +30,16 @@ class LoginController {
       next(error);
     }
   }
+
+  static async logout(req, res, next) {
+    req.session.regenerate((err) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      res.redirect('/');
+    });
+  }
 }
 
 module.exports = LoginController;
