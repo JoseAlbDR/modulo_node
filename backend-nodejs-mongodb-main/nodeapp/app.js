@@ -71,6 +71,7 @@ app.use('/change-locale', require('./routes/change-locale'));
 app.use('/login', require('./routes/auth'));
 app.use('/logout', require('./routes/logout'));
 app.use('/private', require('./routes/private'));
+app.use('/agents-new', require('./routes/agents'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
