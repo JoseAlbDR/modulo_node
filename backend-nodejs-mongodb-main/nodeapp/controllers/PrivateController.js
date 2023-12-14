@@ -1,14 +1,24 @@
 const User = require('../models/Usuario');
+const createError = require('http');
 
 class PrivateController {
   static index = async (req, res, next) => {
-    const idUser = req.session.user;
+    try {
+      const idUser = req.session.user;
 
-    const user = await User.findById(idUser);
+      const user = await User.findById(idUser);
 
-    res.locals.email = user.email;
+      if (!user) {
+        next(createError(500, 'user not found'));
+      }
 
-    res.render('private');
+      res.locals.email = user.email;
+
+      res.render('private');
+    } catch (error) {
+      next(error);
+      return;
+    }
   };
 }
 

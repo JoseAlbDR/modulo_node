@@ -52,6 +52,12 @@ app.use(
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 },
   })
 );
+// Session available in all views
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
+
 app.use('/', require('./routes/index'));
 app.use('/features', require('./routes/features'));
 app.use('/users', require('./routes/users'));
