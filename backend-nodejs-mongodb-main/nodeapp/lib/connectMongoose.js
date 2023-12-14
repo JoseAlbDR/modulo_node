@@ -8,6 +8,6 @@ mongoose.connection.once('open', () => {
   // console.log('Conectado a MongoDB en', mongoose.connection.name);
 });
 
-mongoose.connect('mongodb://mongo-user:123456@localhost:27017/');
+mongoose.connect(process.env.MONGO_URL);
 
 module.exports = mongoose.connection;

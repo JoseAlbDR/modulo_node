@@ -3,10 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+require('dotenv/config');
 const basicAuthMiddleware = require('./lib/basicAuthMiddleware');
 const swaggerMiddleware = require('./lib/swaggerMiddleware');
 const i18n = require('./lib/i18nConfigure');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 require('./lib/connectMongoose');
 
@@ -50,6 +53,9 @@ app.use(
     saveUninitialized: true,
     resave: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+    }),
   })
 );
 // Session available in all views
