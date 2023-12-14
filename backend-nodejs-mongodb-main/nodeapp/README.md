@@ -10,7 +10,7 @@ Install dependencies:
 $ npm install
 ```
 
-Review database connection on /lib/connectMongoose.js (see "Start a MongoDB Server in MacOS or Linux")
+Set environment variable for MONGO_URL in .env file (see .env.template)
 
 Load initial data:
 
@@ -47,12 +47,12 @@ From the folder of the server:
 
 ```json
 {
-    "results": [
-        {
-            "_id": "6511d779c0d44ab041a37592",
-            "name": "Smith",
-            "age": 24
-        }
-    ]
+  "results": [
+    {
+      "_id": "6511d779c0d44ab041a37592",
+      "name": "Smith",
+      "age": 24
+    }
+  ]
 }
 ```
