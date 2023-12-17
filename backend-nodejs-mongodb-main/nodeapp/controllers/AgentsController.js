@@ -11,8 +11,6 @@ class AgentsController {
       const userId = req.session.user;
       const { name, age } = req.body;
 
-      console.log(req.body);
-
       const agente = new Agent({ name, age, owner: userId });
       await agente.save();
 

@@ -12,6 +12,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const sessionAuthMiddleware = require('./lib/sessionAuthMiddleware');
 const AgentsController = require('./controllers/AgentsController');
+const LoginController = require('./controllers/LoginController');
 
 require('./lib/connectMongoose');
 
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Rutas del API
  */
 app.use('/api-doc', swaggerMiddleware);
+app.post('/api/v1/login', LoginController.postJWT);
 app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
 
 /**

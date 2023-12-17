@@ -1,4 +1,6 @@
+const JWT = require('jsonwebtoken');
 const User = require('../models/Usuario');
+require('dotenv/config');
 
 class LoginController {
   static index(req, res, next) {
@@ -39,6 +41,32 @@ class LoginController {
       }
       res.redirect('/');
     });
+  }
+
+  static async postJWT(req, res, next) {
+    const { email, password } = req.body;
+
+    try {
+      if (!email || !password)
+        return res.status(400).json({ err: 'Email and password are required' });
+
+      const user = await User.findOne({ email });
+
+      const isMatch = await user.comparePassword(password);
+
+      if (!user || !isMatch) {
+        return res.json({ error: 'Invalid credentials' });
+      }
+
+      const tokenJWT = JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
+        expiresIn: '2d',
+      });
+
+      res.json({ token: tokenJWT });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
   }
 }
 
