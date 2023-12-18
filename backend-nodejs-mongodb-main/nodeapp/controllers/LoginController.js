@@ -27,6 +27,8 @@ class LoginController {
       }
 
       req.session.user = user.id;
+
+      user.sendEmail('Bienvenido', 'Bienvenido a NodeApp');
       res.redirect('/private');
     } catch (error) {
       next(error);

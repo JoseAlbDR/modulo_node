@@ -1,4 +1,5 @@
 const { default: mongoose } = require('mongoose');
+
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
@@ -22,6 +23,8 @@ userSchema.statics.hashPassword = (rawPassword) => {
 userSchema.methods.comparePassword = function (rawPassword) {
   return bcrypt.compare(rawPassword, this.password);
 };
+
+userSchema.methods.sendEmail = async function (subject, message) {};
 
 const User = mongoose.model('User', userSchema);
 
