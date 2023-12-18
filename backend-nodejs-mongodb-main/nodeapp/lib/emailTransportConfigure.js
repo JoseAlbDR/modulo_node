@@ -13,6 +13,14 @@ const createTransport = async () => {
     },
   };
 
+  const productionTransport = {
+    service: process.env.EMAIL_SERVICE_NAME,
+    auth: {
+      user: process.env.EMAIL_SERVICE_USER,
+      pass: process.env.EMAIL_SERVICE_PASS,
+    },
+  };
+
   const transport = nodemailer.createTransport(developmentTransport);
 
   return transport;
