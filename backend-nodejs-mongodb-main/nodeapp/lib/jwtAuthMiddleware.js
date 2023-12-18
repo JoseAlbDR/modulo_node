@@ -10,7 +10,7 @@ const jwtAuthMiddleware = async (req, res, next) => {
 
     JWT.verify(token, process.env.JWT_SECRET, (err, payload) => {
       if (err) next(createHttpError(401, 'Invalid token'));
-      req.body.user = { ...payload };
+      req.body.loggedUserId = payload.id;
       next();
     });
   } catch (error) {

@@ -12,7 +12,7 @@ const Agente = require('../../models/Agente');
  *     description: Devuelve JSON
  */
 router.get('/', async (req, res, next) => {
-  console.log({ user: req.body.user });
+  const { loggedUserId } = req.body;
 
   try {
     // filtros
@@ -39,6 +39,8 @@ router.get('/', async (req, res, next) => {
     if (filtreByAge) {
       filtro.age = filtreByAge;
     }
+
+    filtro.owner = loggedUserId;
 
     const agentes = await Agente.lista(filtro, skip, limit, sort, fields);
 
