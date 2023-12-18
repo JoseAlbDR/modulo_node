@@ -1,4 +1,7 @@
 const { default: mongoose } = require('mongoose');
+const emailTransportConfigure = require('../lib/emailTransportConfigure');
+const nodemailer = require('nodemailer');
+require('dotenv/config');
 
 const bcrypt = require('bcrypt');
 
@@ -24,7 +27,23 @@ userSchema.methods.comparePassword = function (rawPassword) {
   return bcrypt.compare(rawPassword, this.password);
 };
 
-userSchema.methods.sendEmail = async function (subject, message) {};
+userSchema.methods.sendEmail = async function (subject, body) {
+  const transport = await emailTransportConfigure();
+
+  const result = await transport.sendMail({
+    from: process.env.EMAIL_SERVICE_FROM,
+    to: this.email,
+    subject,
+    // text plain text
+    html: body,
+  });
+  console.log(
+    `URL de previsualización: ${nodemailer.getTestMessageUrl(result)}`,
+    {
+      result,
+    }
+  );
+};
 
 const User = mongoose.model('User', userSchema);
 
