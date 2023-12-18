@@ -21,7 +21,12 @@ const createTransport = async () => {
     },
   };
 
-  const transport = nodemailer.createTransport(developmentTransport);
+  const activeTransport =
+    process.env.NODE_ENV === 'development'
+      ? developmentTransport
+      : productionTransport;
+
+  const transport = nodemailer.createTransport(activeTransport);
 
   return transport;
 };
