@@ -1,7 +1,8 @@
 'use strict';
-const ampqlib = require('amqplib');
+const amqplib = require('amqplib');
+require('dotenv/config');
 
-const QEUE = 'tasks';
+const QUEUE = 'tasks';
 
 main().catch((err) => console.log(err));
 
@@ -14,9 +15,13 @@ async function main() {
   // create a channel
   const channel = await connection.createChannel();
 
-  // ensure that exist a exchange
-  await channel.assertExchange(EXCHANGE, 'direct', {
-    // direct is the type, can be topic and many more
-    durable: true, // exchange will survive broker restarts
+  await channel.assertQueue(QUEUE, {
+    durable: true,
+  });
+
+  channel.consume(QUEUE, (message) => {
+    const payload = message.content.toString();
+    console.log(payload);
+    channel.ack(message);
   });
 }
