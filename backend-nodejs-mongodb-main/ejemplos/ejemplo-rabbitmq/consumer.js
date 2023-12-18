@@ -19,9 +19,12 @@ async function main() {
     durable: true,
   });
 
-  channel.consume(QUEUE, (message) => {
+  channel.prefetch(3); // Give me a message until I confirm that is done (ack), pending ack's
+
+  channel.consume(QUEUE, async (message) => {
     const payload = message.content.toString();
     console.log(payload);
+    await sleep(5000);
     channel.ack(message);
   });
 }
