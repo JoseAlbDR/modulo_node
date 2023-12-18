@@ -12,6 +12,8 @@ const Agente = require('../../models/Agente');
  *     description: Devuelve JSON
  */
 router.get('/', async (req, res, next) => {
+  console.log({ user: req.body.user });
+
   try {
     // filtros
     // http://127.0.0.1:3000/api/agentes?name=Jones
@@ -45,8 +47,7 @@ router.get('/', async (req, res, next) => {
     //   agente.saluda();
     // })
 
-    res.json({ results: agentes })
-
+    res.json({ results: agentes });
   } catch (err) {
     next(err);
   }
@@ -73,10 +74,11 @@ router.put('/:id', async (req, res, next) => {
     const id = req.params.id;
     const data = req.body;
 
-    const agenteActualizado = await Agente.findByIdAndUpdate(id, data, { new: true });
+    const agenteActualizado = await Agente.findByIdAndUpdate(id, data, {
+      new: true,
+    });
 
     res.json({ result: agenteActualizado });
-
   } catch (err) {
     next(err);
   }
@@ -95,7 +97,6 @@ router.post('/', async (req, res, next) => {
     const agenteGuardado = await agente.save();
 
     res.json({ result: agenteGuardado });
-
   } catch (err) {
     next(err);
   }
@@ -113,6 +114,6 @@ router.delete('/:id', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-})
+});
 
 module.exports = router;
