@@ -1,6 +1,7 @@
 const { default: mongoose } = require('mongoose');
 const emailTransportConfigure = require('../lib/emailTransportConfigure');
 const nodemailer = require('nodemailer');
+const channelPromise = require('../lib/rabbitMQLib');
 require('dotenv/config');
 
 const bcrypt = require('bcrypt');
@@ -21,6 +22,24 @@ const userSchema = new mongoose.Schema({
 // metodo estático que un hash de una pasword
 userSchema.statics.hashPassword = (rawPassword) => {
   return bcrypt.hash(rawPassword, 10);
+};
+
+// método para pedir a otro servicio que envie un email (RabbitMQ)
+
+userSchema.methods.sendEmailRabbitMQ = async function (subject, body) {
+  // cargar rabbitMQLib
+  const EXCHANGE = 'email-request';
+  const channel = await channelPromise;
+  await channel.assertExchange(EXCHANGE, 'direct', {
+    durable: true,
+  });
+
+  const message = {
+    subject,
+    html: body,
+  };
+
+  channel.publish(EXCHANGE, '*', Buffer.from(JSON.stringify(message)));
 };
 
 userSchema.methods.comparePassword = function (rawPassword) {
