@@ -20,18 +20,30 @@ async function main() {
     durable: true, // exchange will survive broker restarts
   });
 
+  let keepSending = true;
   while (true) {
     // publish messages
     const message = {
       task: 'send an email' + Date.now(),
     };
 
-    channel.publish(EXCHANGE, '*', Buffer.from(JSON.stringify(message)), {
-      // * is all queues
-      persistent: true, // message will survive broker restarts
-    });
+    // verify if I can send more messager or I have to wait
+    if (!keepSending) {
+      console.log('Buffer full, waiting for empty');
+      await new Promise((resolve) => channel.on('drain', resolve));
+    }
+
+    keepSending = channel.publish(
+      EXCHANGE,
+      '*',
+      Buffer.from(JSON.stringify(message)),
+      {
+        // * is all queues
+        persistent: true, // message will survive broker restarts
+      }
+    );
 
     console.log({ message });
-    await sleep(2000);
+    await sleep(0);
   }
 }
