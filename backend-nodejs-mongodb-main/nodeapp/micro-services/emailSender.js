@@ -19,7 +19,7 @@ async function main() {
     durable: true,
   });
 
-  channel.prefetch(1); // Give me a message until I confirm that is done (ack), pending ack's
+  channel.prefetch(1); // 1 on 1, send confirm,
 
   channel.consume(QUEUE, async (message) => {
     const payload = message.content.toString();
