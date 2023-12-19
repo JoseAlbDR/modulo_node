@@ -8,6 +8,7 @@
     "init-db": "node init-db.js"
   },
   "dependencies": {
+    "amqplib": "^0.10.3",
     "basic-auth": "^2.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
