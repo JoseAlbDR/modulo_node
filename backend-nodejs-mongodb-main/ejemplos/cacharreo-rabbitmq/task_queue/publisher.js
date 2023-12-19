@@ -7,8 +7,10 @@ async function main() {
 
   const channel = await connection.createChannel();
 
-  const queue = 'hello';
-  const message = 'Hello, world!';
+  const queue = 'task-queue';
+  const message = process.argv.slice(2).join(' ') || 'Hello, world!';
+
+  console.log(message);
 
   channel.assertQueue(queue, { durable: false });
 

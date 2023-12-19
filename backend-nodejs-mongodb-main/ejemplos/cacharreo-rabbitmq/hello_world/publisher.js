@@ -7,7 +7,7 @@ async function main() {
 
   const channel = await connection.createChannel();
 
-  const queue = 'hello';
+  const queue = 'task_queue';
   const message = 'Hello, world!';
 
   channel.assertQueue(queue, { durable: false });
