@@ -36,6 +36,7 @@ userSchema.methods.sendEmailRabbitMQ = async function (subject, body) {
 
   const message = {
     subject,
+    to: this.email,
     html: body,
   };
 
