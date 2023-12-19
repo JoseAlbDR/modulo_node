@@ -25,7 +25,7 @@ async function main() {
 
   channel.consume(QUEUE, async (message) => {
     const { to, html, subject } = JSON.parse(message.content.toString());
-    console.log({ subject, to, html });
+    // console.log({ subject, to, html });
 
     const result = await transport.sendMail({
       from: process.env.EMAIL_SERVICE_FROM,
@@ -35,10 +35,10 @@ async function main() {
       html,
     });
     console.log(
-      `URL de previsualización: ${nodemailer.getTestMessageUrl(result)}`,
-      {
-        result,
-      }
+      `URL de previsualización: ${nodemailer.getTestMessageUrl(result)}`
+      // {
+      //   result,
+      // }
     );
 
     channel.ack(message);
