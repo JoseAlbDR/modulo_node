@@ -14,7 +14,7 @@ app.use('/', (req, res, next) => {
 const server = http.createServer(app);
 
 server.listen(3001, () => {
-  console.log('Server listening on port 3000');
+  console.log('Server listening on port 3001');
 });
 
 webSocketsServer(server);

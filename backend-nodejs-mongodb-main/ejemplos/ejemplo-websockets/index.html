@@ -57,7 +57,32 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
     <script>
-      $(function () {});
+      $(function () {
+        const socket = io();
+
+        // send messages to server
+        $('form').submit(() => {
+          const text = $('#m').val();
+
+          socket.emit('new-message', text);
+
+          $('#m').val('');
+          return false;
+        });
+
+        socket.on('mensaje-desde-el-servidor', (message) => {
+          const li = $('<li>').text(message);
+          const list = $('#messages');
+          list.append(li);
+        });
+
+        socket.on('noticia', (message) => {
+          const text = `Nueva noticia: ${message}`;
+          const li = $('<li>').text(text);
+          const list = $('#messages');
+          list.append(li);
+        });
+      });
     </script>
   </body>
 </html>

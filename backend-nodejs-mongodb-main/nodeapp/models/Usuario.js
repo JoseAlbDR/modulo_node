@@ -2,9 +2,11 @@ const { default: mongoose } = require('mongoose');
 const emailTransportConfigure = require('../lib/emailTransportConfigure');
 const nodemailer = require('nodemailer');
 const channelPromise = require('../lib/rabbitMQLib');
+const { Requester } = require('cote');
+const bcrypt = require('bcrypt');
 require('dotenv/config');
 
-const bcrypt = require('bcrypt');
+const requester = new Requester({ name: 'nodeapp' });
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -45,6 +47,19 @@ userSchema.methods.sendEmailRabbitMQ = async function (subject, body) {
 
 userSchema.methods.comparePassword = function (rawPassword) {
   return bcrypt.compare(rawPassword, this.password);
+};
+
+userSchema.methods.sendEmailCote = async function (subject, body) {
+  const event = {
+    type: 'send-email',
+    from: process.env.EMAIL_SERVICE_FROM,
+    to: this.email,
+    subject,
+    html: body,
+  };
+  return new Promise((resolve) => {
+    requester.send(event, resolve);
+  });
 };
 
 userSchema.methods.sendEmail = async function (subject, body) {
