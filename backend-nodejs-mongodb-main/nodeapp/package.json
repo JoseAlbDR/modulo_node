@@ -6,7 +6,8 @@
     "start": "cross-env NODE_ENV=production node ./bin/www",
     "dev": "cross-env NODE_ENV=development DEBUG=nodeapp:* nodemon ./bin/www",
     "init-db": "node init-db.js",
-    "email-sender-service": "nodemon ./micro-services/emailSender.js"
+    "email-sender-rabbitmq": "nodemon ./micro-services/emailSenderRabbitMQ.js",
+    "email-sender-cote": "nodemon ./micro-services/emailSenderCote.js"
   },
   "dependencies": {
     "amqplib": "^0.10.3",

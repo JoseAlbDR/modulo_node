@@ -29,7 +29,14 @@ class LoginController {
       req.session.user = user.id;
 
       // user.sendEmail('Bienvenido', 'Bienvenido a NodeApp');
-      user.sendEmailRabbitMQ('Bienvenido', 'Bienvenido a NodeApp');
+      // user.sendEmailRabbitMQ('Bienvenido', 'Bienvenido a NodeApp');
+      const result = await user.sendEmailCote(
+        'Bienvenido',
+        'Bienvenido a Nodeapp Cote'
+      );
+
+      console.log({ result });
+
       console.log('User sent email');
 
       res.redirect('/private');
