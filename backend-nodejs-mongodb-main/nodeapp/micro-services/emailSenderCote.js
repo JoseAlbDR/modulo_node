@@ -1,47 +1,29 @@
 'use strict';
-const amqplib = require('amqplib');
+
+const { Responder } = require('cote');
 const nodemailer = require('nodemailer');
-require('dotenv/config');
 
-const QUEUE = 'email-sender';
-
-main().catch((err) => console.log('There was an error', err));
-
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+main().catch((err) => console.log(err));
 
 async function main() {
-  // connect to RabbitMQ broker
-  const connection = await amqplib.connect(process.env.RABBITMQ_URL);
+  const responder = new Responder({ name: 'email service' });
   const transport = await createTransport();
+  responder.on('send-email', async (req, done) => {
+    try {
+      const { from, to, subject, html } = req;
 
-  // create a channel
-  const channel = await connection.createChannel();
+      const result = await transport.sendMail({
+        from,
+        to,
+        html,
+        subject,
+      });
 
-  await channel.assertQueue(QUEUE, {
-    durable: true,
-  });
-
-  channel.prefetch(1); // 1 on 1, send confirm,
-
-  channel.consume(QUEUE, async (message) => {
-    const { to, html, subject } = JSON.parse(message.content.toString());
-    // console.log({ subject, to, html });
-
-    const result = await transport.sendMail({
-      from: process.env.EMAIL_SERVICE_FROM,
-      to,
-      subject,
-      // text plain text
-      html,
-    });
-    console.log(
-      `URL de previsualización: ${nodemailer.getTestMessageUrl(result)}`
-      // {
-      //   result,
-      // }
-    );
-
-    channel.ack(message);
+      console.log(`Email sent. URL: ${nodemailer.getTestMessageUrl(result)}`);
+      done(result);
+    } catch (error) {
+      done('There was an error');
+    }
   });
 }
 
