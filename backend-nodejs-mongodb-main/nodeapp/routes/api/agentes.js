@@ -92,12 +92,14 @@ router.put('/:id', async (req, res, next) => {
 router.post('/', upload.single('avatar'), async (req, res, next) => {
   try {
     const agenteData = req.body;
-
-    console.log(req.file);
+    const userId = req.body.loggedUserId;
 
     // creamos una instancia de agente en memoria
     const agente = new Agente(agenteData);
     agente.avatar = req.file.filename;
+    agente.owner = userId;
+
+    console.log({ agente });
 
     // la persistimos en la BD
     const agenteGuardado = await agente.save();
