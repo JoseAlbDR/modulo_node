@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Agente = require('../../models/Agente');
+const upload = require('../../lib/uploadConfigure');
 
 /**
  * @openapi
@@ -88,12 +89,15 @@ router.put('/:id', async (req, res, next) => {
 
 // POST /api/agentes
 // Crea un agente
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('avatar'), async (req, res, next) => {
   try {
     const agenteData = req.body;
 
+    console.log(req.file);
+
     // creamos una instancia de agente en memoria
     const agente = new Agente(agenteData);
+    agente.avatar = req.file.filename;
 
     // la persistimos en la BD
     const agenteGuardado = await agente.save();
