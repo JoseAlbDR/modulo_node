@@ -9,6 +9,9 @@ const agenteSchema = mongoose.Schema(
       ref: 'User',
       type: mongoose.Types.ObjectId,
     },
+    avatar: {
+      type: String,
+    },
   },
   {
     // collection: 'agentes' // para forzar un nombre concreto de colección

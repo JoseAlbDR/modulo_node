@@ -6,10 +6,10 @@ const nodemailer = require('nodemailer');
 main().catch((err) => console.log(err));
 
 async function main() {
-  const responder = new Responder({ name: 'email service' });
-  const transport = await createTransport();
-  responder.on('send-email', async (req, done) => {
-    try {
+  try {
+    const responder = new Responder({ name: 'email service' });
+    const transport = await createTransport();
+    responder.on('send-email', async (req, done) => {
       const { from, to, subject, html } = req;
 
       const result = await transport.sendMail({
@@ -21,10 +21,10 @@ async function main() {
 
       console.log(`Email sent. URL: ${nodemailer.getTestMessageUrl(result)}`);
       done(result);
-    } catch (error) {
-      done('There was an error');
-    }
-  });
+    });
+  } catch (error) {
+    done('There was an error');
+  }
 }
 
 async function createTransport() {

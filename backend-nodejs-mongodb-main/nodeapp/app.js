@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  */
 app.use('/api-doc', swaggerMiddleware);
 app.post('/api/v1/login', LoginController.postJWT);
-app.use('/api/v1/agentes', jwtAuthMiddleware, require('./routes/api/agentes'));
+app.use('/api/v1/agents', jwtAuthMiddleware, require('./routes/api/agentes'));
 
 /**
  * Rutas del website
