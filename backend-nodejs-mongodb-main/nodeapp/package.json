@@ -12,6 +12,7 @@
     "amqplib": "^0.10.3",
     "basic-auth": "^2.0.1",
     "cookie-parser": "~1.4.4",
+    "cote": "^1.0.3",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
